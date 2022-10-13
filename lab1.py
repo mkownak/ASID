@@ -47,7 +47,7 @@ def foo4(a,b):
 print(foo4(10,2))
 
 
-#Zad 6
+#Zad 6 odzielny skrypt
 
 
 
