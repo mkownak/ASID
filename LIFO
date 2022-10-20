@@ -1,0 +1,53 @@
+class Node:
+    def __init__(self, value=None, next=None):
+        self.value=value
+        self.next=next
+
+class LinkedList:
+    def __init__(self, head=None):
+        self.head=head
+
+class Stack:
+    def __init__(self,top=None):
+        self._storage=top
+
+    def push(self, element:any):
+        node=Node(element)
+
+        if self._storage is None:
+            self._storage=node
+            return
+
+        temp=self._storage
+        self._storage=node
+        node.next=temp
+
+    def pop(self):
+        if self._storage is None:
+            print("nie mozna pop, stack jest pusty")
+            return
+
+        value=self._storage
+
+        self._storage=self._storage.next
+
+        return value
+
+    def len(self):
+        return __len__(self)
+
+
+    def print(self):
+        node = self._storage
+
+        while node is not None:
+            print(node.value)
+            node = node.next
+
+
+stack=Stack()
+stack.push(1)
+stack.push(2)
+stack.push(3)
+stack.print()
+print(stack.len())
