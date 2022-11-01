@@ -22,8 +22,16 @@ def power(number:int,n:int)->int:
 
     return number*power(number,n-1)
 
-def reverse(txt:str)->str: #dokończe
-    return
+def reverse(txt:str,temp=""):
+
+    if len(txt)==0:
+        txt=temp
+        return txt
+
+    temp+=txt[-1]
+    txt=txt[:len(txt)-1]
+
+    return reverse(txt,temp)
 
 def factorial(n:int)->int:
     if n==1 or n==0:
@@ -31,15 +39,14 @@ def factorial(n:int)->int:
 
     return n*factorial(n-1)
 
-def prime(n:int,a=2)->bool: #dokoncz
-
-    if n==a:
+def prime(n:int, i=2):
+    if n==i:
         return True
 
-    if n%a==0:
+    if n%i==0:
         return False
 
-    prime(n,a+1)
+    return prime(n,i=i+1)
 
 
 
