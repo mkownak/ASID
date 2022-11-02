@@ -56,6 +56,28 @@ def remove_duplicates(txt:str)->str:
         return remove_duplicates(txt[1:])
     
     return txt[0] + remove_duplicates(txt[1:])
+    
+def n_sums(n: int, i: int = 0, sum1: int = 0, sum2: int = 0, l1=[])->list[int]:
+    if i == 0:
+        i = 10**(n-1)
+
+    if i==10**n-1:
+        return l1
+
+    if i < 10**n:
+        i = str(i)
+        for j in range(len(i)):
+            if j % 2 == 0:
+                sum1 += int(i[j])
+            else:
+                sum2 += int(i[j])
+
+        if sum1 == sum2:
+            l1.append(int(i))
+
+
+
+        return n_sums(n, int(i)+1,)
 
 
 
