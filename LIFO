@@ -1,3 +1,4 @@
+from typing import Any
 class Node:
     def __init__(self, value=None, next=None):
         self.value=value
@@ -8,7 +9,7 @@ class Stack:
         self._storage=top
         self.size=0
 
-    def push(self, element:any):
+    def push(self, element: Any):
         node=Node(element)
 
         if self._storage is None:
