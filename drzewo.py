@@ -8,26 +8,45 @@ class TreeNode:
         self.value=value
         self.children=[]
 
+
     def is_leaf(self)->bool:
-        if self.children is None:
+        if len(self.children)==0:
             return True
         else:
             return False
 
-    def add(self,child:'TreeNode'):
+    def add(self,child:'TreeNode')->None:
         self.children.append(child)
 
-    def for_each_deep_first(self,visit=set()): #dokoncz
-        if self.value not in visit:
-            print(self.value)
-            visit.add(self.value)
+    def print(self): #DFS print
+        print(self.value)
+
+        if len(self.children)!=0:
             for child in self.children:
-                 self.for_each_deep_first()
+                child.print()
+
+    def FELO(self): #for_each_level_order
+        return
+
+    def search(self,value):
+        if self.value==value:
+            return True
+
+        if len(self.children)!=0:
+            for child in self.children:
+                temp=child.search(value)
+
+                if temp!=0:
+                    return temp
+        return False
 
 
-
-
-root=TreeNode(10)
-root.add(5)
-root.add(2)
-root.for_each_deep_first()
+root=TreeNode("F")
+root.add(TreeNode("B"))
+root.add(TreeNode("G"))
+root.children[0].add(TreeNode("A"))
+root.children[0].add(TreeNode("D"))
+root.children[1].add(TreeNode("I"))
+root.children[0].children[1].add(TreeNode("C"))
+root.children[0].children[1].add(TreeNode("E"))
+root.children[1].children[0].add(TreeNode("H"))
