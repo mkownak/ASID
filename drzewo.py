@@ -1,4 +1,5 @@
-from typing import Any, List
+from typing import Any, List, Callable
+import FIFO
 
 class TreeNode:
     value: Any
@@ -9,24 +10,39 @@ class TreeNode:
         self.children=[]
 
 
-    def is_leaf(self)->bool:
-        if len(self.children)==0:
-            return True
-        else:
-            return False
+        def is_leaf(self)->bool:
+        return len(self.children) == 0
+           # return True
+        # return False
 
     def add(self,child:'TreeNode')->None:
         self.children.append(child)
 
-    def print(self): #DFS print
+     def visit(self):
         print(self.value)
 
-        if len(self.children)!=0:
-            for child in self.children:
-                child.print()
+    def for_each_deep_first(self,visit: Callable[['TreeNode'], None]):
+        self.visit()
 
-    def FELO(self): #for_each_level_order
-        return
+        if len(self.children) != 0:
+            for child in self.children:
+                child.for_each_deep_first(visit)
+
+    def for_each_level_order(self, visit: Callable[['TreeNode'],None]): #POPRAW
+        que=FIFO.Queue()
+        que.enqueue(self.value)
+
+        while len(que) !=0 :
+            d=len(que)
+
+            while d>0:
+                p=que.peek()
+                que.dequeue()
+                p.visit()
+
+            for i in range(len(p.children)):
+                que.enqueue(p.children[i])
+                d-=1
 
     def search(self,value):
         if self.value==value:
@@ -50,3 +66,7 @@ root.children[1].add(TreeNode("I"))
 root.children[0].children[1].add(TreeNode("C"))
 root.children[0].children[1].add(TreeNode("E"))
 root.children[1].children[0].add(TreeNode("H"))
+
+#root.for_each_deep_first(root.visit)
+#root.for_each_level_order(root.visit)
+
