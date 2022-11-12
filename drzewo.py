@@ -18,7 +18,7 @@ class TreeNode:
     def add(self,child:'TreeNode')->None:
         self.children.append(child)
 
-     def visit(self): #zaimplementuj jako funkcja, a nie metoda
+    def visit(self): #zaimplementuj jako funkcja, a nie metoda
         print(self.value)
 
     def for_each_deep_first(self,visit: Callable[['TreeNode'], None]):
