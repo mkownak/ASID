@@ -65,6 +65,20 @@ class TreeNode:
             for child in self.children:
                 child.print()
 
+    def show(self,dot=None):
+        if dot is None:
+            dot=graphviz.Digraph("Tree",format="png")
+
+        dot.node(str(self),str(self.value))
+
+        if len(self.children) != 0:
+            for child in self.children:
+                dot.node(str(child),str(child.value))
+                dot.edge(str(self),str(child))
+                child.show(dot)
+
+        dot.render(directory='doctest-output').replace('\\', '/')
+
 
 
 class Tree:
@@ -85,33 +99,13 @@ class Tree:
     def for_each_level_order(self, visit: Callable[['TreeNode'], None]) -> None:
         TreeNode.for_each_level_order(root,visit)
 
+
     def for_each_deep_first(self, visit: Callable[['TreeNode'], None]) -> None:
         TreeNode.for_each_deep_first(root,visit)
 
-    def show(self): #dokoncz
-        dot = graphviz.Digraph("Tree",format="png")
 
-        dot.node('root',str(self.root.value))
-
-        if len(self.root.children)!=0:
-            for child in self.root.children:
-                dot.node(str(child),str(child.value))
-                dot.edge('root',str(child))
-
-
-        dot.render(directory='doctest-output').replace('\\', '/')
-
-
-
-root=TreeNode("F")
-root.add(TreeNode("B"))
-root.add(TreeNode("G"))
-root.children[0].add(TreeNode("A"))
-root.children[0].add(TreeNode("D"))
-root.children[1].add(TreeNode("I"))
-root.children[0].children[1].add(TreeNode("C"))
-root.children[0].children[1].add(TreeNode("E"))
-root.children[1].children[0].add(TreeNode("H"))
+    def show(self):
+        root.show()
 
 #root.for_each_deep_first(root.visit)
 #root.for_each_level_order(root.visit)
@@ -120,7 +114,7 @@ root.children[1].children[0].add(TreeNode("H"))
 tree=Tree(root)
 #tree.add("K","A")
 #root.print()
-tree.show()
 #tree.for_each_level_order(tree.root.visit)
 #tree.for_each_deep_first(tree.root.visit)
+tree.show()
 
