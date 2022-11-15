@@ -2,6 +2,9 @@ from typing import Any, List, Callable, Union
 import FIFO
 import graphviz
 
+def visit(a):
+    print(a)
+
 class TreeNode:
     value: Any
     children: List['TreeNode']
@@ -19,11 +22,9 @@ class TreeNode:
     def add(self,child:'TreeNode')->None:
         self.children.append(child)
 
-    def visit(self): #zaimplementuj jako funkcja, a nie metoda
-        print(self.value)
 
     def for_each_deep_first(self,visit: Callable[['TreeNode'], None]):
-        self.visit()
+        visit(self.value)
 
         if len(self.children) != 0:
             for child in self.children:
@@ -39,7 +40,7 @@ class TreeNode:
             while d>0:
                 p=que.peek()
                 que.dequeue()
-                p.value.visit() #print(p.value.value)
+                visit(p.value.value)
 
                 for i in p.value.children:
                     que.enqueue(i)
@@ -107,14 +108,28 @@ class Tree:
     def show(self):
         root.show()
 
-#root.for_each_deep_first(root.visit)
-#root.for_each_level_order(root.visit)
+
+
+
+root=TreeNode("F")
+root.add(TreeNode("B"))
+root.add(TreeNode("G"))
+root.children[0].add(TreeNode("A"))
+root.children[0].add(TreeNode("D"))
+root.children[1].add(TreeNode("I"))
+root.children[0].children[1].add(TreeNode("C"))
+root.children[0].children[1].add(TreeNode("E"))
+root.children[1].children[0].add(TreeNode("H"))
+
+#root.for_each_deep_first(visit)
+#root.for_each_level_order(visit)
 #root.print()
 
 tree=Tree(root)
 #tree.add("K","A")
 #root.print()
-#tree.for_each_level_order(tree.root.visit)
-#tree.for_each_deep_first(tree.root.visit)
+#tree.for_each_level_order(visit)
+#tree.for_each_deep_first(visit)
+#root.show()
 tree.show()
 
