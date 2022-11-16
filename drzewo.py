@@ -55,9 +55,9 @@ class TreeNode:
             for child in self.children:
                 temp=child.search(value)
 
-                if temp!=0:
+                if temp!=None:
                     return temp
-        return False
+
 
     def print(self)->None: #DFS
         print(self.value)
@@ -89,7 +89,7 @@ class Tree:
         self.root=root
 
     def add(self,value:Any,parent_name:Any)->None:
-        if TreeNode.search(root,parent_name)==False:
+        if TreeNode.search(root,parent_name)==None:
             print("Nie mozna dodac dziecka do nieistniejacego rodzica")
             return
         else:
@@ -124,6 +124,7 @@ root.children[1].children[0].add(TreeNode("H"))
 #root.for_each_deep_first(visit)
 #root.for_each_level_order(visit)
 #root.print()
+#print(root.search("E"))
 
 tree=Tree(root)
 #tree.add("K","A")
@@ -131,5 +132,5 @@ tree=Tree(root)
 #tree.for_each_level_order(visit)
 #tree.for_each_deep_first(visit)
 #root.show()
-tree.show()
+#tree.show()
 
