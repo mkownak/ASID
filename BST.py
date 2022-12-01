@@ -6,10 +6,10 @@ class BinaryNode:
     left_child: 'BinaryNode'
     right_child: 'BinaryNode'
 
-    def __init__(self, value, left_child=None, right_child=None):
+    def __init__(self, value):
         self.value = value
-        self.left_child = left_child
-        self.right_child = right_child
+        self.left_child = None
+        self.right_child = None
 
     def min(self, min_node=None) -> 'BinaryNode':
         if min_node is None:
@@ -26,3 +26,33 @@ class BinaryNode:
                 return self.right_child.min(min_node)
 
         return min_node
+
+
+class BinarySearchTree:
+    root: BinaryNode
+
+    def __init__(self, root:'BinaryNode'):
+        self.root = root
+
+    def _insert(self, node: 'BinaryNode', value: Any) -> BinaryNode:
+        if node.value < value:
+            node.left_child = BinaryNode(value)
+        else:
+            node.right_child = BinaryNode(value)
+
+
+
+
+
+
+
+
+
+
+root=BinaryNode(8)
+root.left_child=BinaryNode(3)
+root.right_child=BinaryNode(10)
+print(root)
+print(root.left_child)
+print(root.right_child)
+print(root.min())
