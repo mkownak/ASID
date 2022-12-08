@@ -94,7 +94,40 @@ class BinarySearchTree:
     def show(self):
         self.root.show()
 
+    def remove(self,value):
+        self.root=self._remove(self.root,value)
+
+    def _remove(self, node: BinaryNode, value):
+        if node is None:
+            return node
+
+        if node.value == value:
+            if node.left_child is None and node.right_child is None:
+                return None
+
+            if node.left_child is not None and node.right_child is None:
+                return node.left_child
+
+            if node.right_child is not None and node.left_child is None:
+                return node.right_child
+
+            next=node.right_child
+            while next.left_child:
+                next=next.left_child
+            node.value=next.value
+            node.right_child=self._remove(node.right_child,node.value)
+
+        if node.value>value:
+            node.left_child=self._remove(node.left_child,value)
+        else:
+            node.right_child=self._remove(node.right_child,value)
+
+        return node
+
+
+
 root = BinaryNode(8)
 tree = BinarySearchTree(root)
 tree.insert_list([3,1,6,4,7,10,14,13])
+tree.remove(8)
 tree.show()
