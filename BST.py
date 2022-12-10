@@ -7,7 +7,7 @@ class BinaryNode:
     left_child: 'BinaryNode'
     right_child: 'BinaryNode'
 
-    def __init__(self, value):
+    def __init__(self, value) -> None:
         self.value = value
         self.left_child = None
         self.right_child = None
@@ -28,7 +28,7 @@ class BinaryNode:
 
         return min_node
 
-    def contains(self, value: Any):
+    def contains(self, value: Any) -> bool:
         if self.value == value:
             return True
 
@@ -41,34 +41,32 @@ class BinaryNode:
 
         return False
 
-    def show(self, dot=None):
+    def show(self, dot=None) -> None:
         if dot is None:
             dot = graphviz.Digraph("BST_Tree", format="png")
 
-        dot.node(str(self),str(self.value))
+        dot.node(str(self), str(self.value))
 
         if self.left_child:
-            dot.node(str(self.left_child),str(self.left_child.value))
-            dot.edge(str(self),str(self.left_child))
+            dot.node(str(self.left_child), str(self.left_child.value))
+            dot.edge(str(self), str(self.left_child))
             self.left_child.show(dot)
 
         if self.right_child:
-            dot.node(str(self.right_child),str(self.right_child.value))
-            dot.edge(str(self),str(self.right_child))
+            dot.node(str(self.right_child), str(self.right_child.value))
+            dot.edge(str(self), str(self.right_child))
             self.right_child.show(dot)
 
         dot.render(directory='doctest-output').replace('\\', '/')
 
 
-
-
 class BinarySearchTree:
     root: BinaryNode
 
-    def __init__(self, root: 'BinaryNode'):
+    def __init__(self, root: 'BinaryNode') -> None:
         self.root = root
 
-    def insert(self, value: Any):
+    def insert(self, value: Any) -> None:
         self.root = self._insert(root, value)
 
     def _insert(self, node: 'BinaryNode', value: Any) -> BinaryNode:
@@ -88,16 +86,16 @@ class BinarySearchTree:
         for i in range(len(list_)):
             self.insert(list_[i])
 
-    def contains(self, value: Any):
+    def contains(self, value: Any) -> bool:
         return self.root.contains(value)
 
     def show(self):
         self.root.show()
 
-    def remove(self,value):
-        self.root=self._remove(self.root,value)
+    def remove(self, value) -> None:
+        self.root = self._remove(self.root, value)
 
-    def _remove(self, node: BinaryNode, value):
+    def _remove(self, node: BinaryNode, value) -> BinaryNode:
         if node is None:
             return node
 
@@ -111,16 +109,16 @@ class BinarySearchTree:
             if node.right_child is not None and node.left_child is None:
                 return node.right_child
 
-            next=node.right_child
+            next = node.right_child
             while next.left_child:
-                next=next.left_child
-            node.value=next.value
-            node.right_child=self._remove(node.right_child,node.value)
+                next = next.left_child
+            node.value = next.value
+            node.right_child = self._remove(node.right_child, node.value)
 
-        if node.value>value:
-            node.left_child=self._remove(node.left_child,value)
+        if node.value > value:
+            node.left_child = self._remove(node.left_child, value)
         else:
-            node.right_child=self._remove(node.right_child,value)
+            node.right_child = self._remove(node.right_child, value)
 
         return node
 
@@ -129,5 +127,5 @@ class BinarySearchTree:
 root = BinaryNode(8)
 tree = BinarySearchTree(root)
 tree.insert_list([3,1,6,4,7,10,14,13])
-tree.remove(8)
+#tree.remove()
 tree.show()
